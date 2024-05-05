@@ -1,0 +1,53 @@
+{% extends 'base/index.html.twig' %}
+{% block title %}Login | Welcome{% endblock %}
+{% block main_body %}
+    {% if register is defined %}
+        {% set submit =  translation["Register"] %}
+    {% else %}
+        {% set submit = translation["Sign In"] %}
+    {% endif %}
+    <div class="col bg-light">
+        <br>
+        <div class="login d-flex align-items-center py-1">
+            <div class="container mx-auto text-center">
+                <div class="row">
+                    <div class="col-md-9 col-lg-8 mx-auto">
+                        <h3 class="header text-center font-weight-light">
+                            {% if register is defined %}
+                                {{ translation["Welcome To AVA"] | replace({'AVA': '<strong>AVA</strong>'}) | raw }}!
+                            {% else %}
+                                    {{ translation["Welcome Back"] }}!
+                            {% endif %}
+                        </h3>
+                        <br>
+                        {% if error is defined %}
+                            {% include 'base/alert.html.twig' with {'alertType':'warning','alertText': error} %}
+                        {% endif %}
+                        <form method="POST">
+                            {% if register is defined %}
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="name" class="form-control" id="floatingName" placeholder="{{ translation["Name"] }}">
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="surname" class="form-control" id="floatingSurname" placeholder="{{ translation["Surname"] }}">
+                                </div>
+                            {% endif %}
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="{{ translation["Email"] }}">
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="{{ translation["Password"] }}">
+                            </div>
+                            <input class="btn btn-secondary btn-lg btn-block btn-login text-uppercase fw-bold SignUpSubmit  pl-5 pr-5"
+                                    type="submit" value="{{ submit }}">
+                            <br>
+                            <div class="text-center">
+                                <a class="small" href="#"></a>
+                                <a class="small" href="#">{{ translation["Forgot Password"] }}</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
