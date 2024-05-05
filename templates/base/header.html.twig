@@ -1,0 +1,56 @@
+{% block header %}
+    <div class="header text-center border border-top-0 border-dark">
+        <div class="row header-1 align-items-center">
+            <div class="col">
+                <img class="weather-icon" src="{{ asset('weather/' ~  weatherData.weather ~ '.png', 'images') }}" alt="{{ country }}">
+                <p class="weather-info">{{ translation[weatherData.location] }} {{ weatherData.temperature }}</p>
+            </div>
+            <div class="col col-6">
+                <a href="{{ baseUrl }}"><img class="logo" src="{{ asset('logo.jpg', 'images') }}" alt="AVA logo"></a>
+            </div>
+            <div class="col">
+                <div class="country">
+                    <form method="POST">
+                    {% for country in countries %}
+                        <img class="country-icon" data--country="{{ country.alias }}" src="{{ asset('countries/' ~  country.alias ~ '.png', 'images') }}" alt="{{ country.name }}">
+                    {% endfor %}
+                    </form>
+                </div>
+                {% if signed is not defined %}
+                <div class="login">
+                    {% if signUp is not defined %}
+                        <a href="{{ baseUrl }}/login">
+                            <button type="button" class="btn btn-outline-success mx-auto">{{ translation["Login"] }}</button>
+                        </a>
+                        <a href="{{ baseUrl }}/register">
+                            <button type="button" class="btn btn-outline-primary mx-auto">{{ translation["Register"] }}</button>
+                        </a>
+                    {% else %}
+                        <a href="{{ baseUrl }}">
+                            <button type="button" class="btn btn-outline-primary mx-auto">&#8592; {{ translation["Back To Home"] }}</button>
+                        </a>
+                        {% if register is defined %}
+                            <a href="{{ baseUrl }}/login">
+                                <button type="button" class="btn btn-outline-success mx-auto">{{ translation["Login"] }}</button>
+                            </a>
+                        {% endif %}
+                        {% if login is defined %}
+                            <a href="{{ baseUrl }}/register">
+                                <button type="button" class="btn btn-outline-primary mx-auto">{{ translation["Register"] }}</button>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        {% if signUp is not defined %}
+        <div class="row header-2 menu align-items-center">
+            <div class="col border-top border-dark menu-item">{{ translation["Home"] }}</div>
+            <div class="col border border-bottom-0 border-dark menu-item">{{ translation["About"] }}</div>
+            <div class="col border-top border-dark menu-item">{{ translation["Contact"] }}</div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
