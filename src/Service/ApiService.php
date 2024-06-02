@@ -5,14 +5,13 @@ namespace App\Service;
 use App\Entity\Api;
 use App\Entity\Country;
 use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\Client;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ApiService
 {
-    private $client;
+    public Client $client;
 
     private EntityManagerInterface $em;
 
@@ -22,6 +21,9 @@ class ApiService
         $this->em = $em;
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function getWeatherApi($countryAlias):array
     {
         $weatherApi = $this->em->createQueryBuilder()
@@ -40,15 +42,7 @@ class ApiService
         if (!empty($weatherApi)) {
             $apiId = $weatherApi["id"];
             $updatedAt = $weatherApi["updated_at"];
-            $currenctDateTime  = new DateTime();
-            $interval = $updatedAt->diff($currenctDateTime);
-            $intervalPerSecond = (int)$interval->format('%d') * 86400 + (int)$interval->format('%h') * 3600 + (int)$interval->format('%i') * 60 + (int)$interval->format('%s');
-            if((int)$interval->format('%h') == 12){
-                $intervalPerSecond -= 43200;
-            }
-            if((int)$intervalPerSecond > 1800){
-                $dateTime = $currenctDateTime->format('Y:m:d h:i:s');
-                $weatherData = json_encode($this->getWeatherData($currentCountryCapital));
+//                $weatherData = json_encode($this->getWeatherData($currentCountryCapital));
 //                $this->em->createQueryBuilder()->update(Api::class, 'api')
 //                    ->set('api.updated_at', ':date')
 //                    ->set("api.value", ':data')
@@ -56,7 +50,6 @@ class ApiService
 //                    ->setParameter('data', $weatherData)
 //                    ->setParameter('date', $dateTime)
 //                    ->getQuery()->execute();
-            }
         } else {
             $date = new DateTime();
             $dateTime = $date->format('Y-m-d h:i:s');
@@ -66,8 +59,7 @@ class ApiService
                         VALUES ('weather_" . $countryAlias .  "', '$weatherData', '$dateTime', '$dateTime')"
             )->fetchAllAssociative();
         }
-        $response = !empty($weatherData) ? json_decode($weatherData, true) :$weatherApi["value"];
-        return $response;
+        return !empty($weatherData) ? json_decode($weatherData, true) :$weatherApi["value"];
     }
 
     protected function getWeatherData(string $city){
