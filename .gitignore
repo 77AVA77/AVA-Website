@@ -42,6 +42,10 @@
 # Build data
 /build/
 
+.env
+.env.local
+
+.tasks
 # Composer PHAR
 /composer.phar
 

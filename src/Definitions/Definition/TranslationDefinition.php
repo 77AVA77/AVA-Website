@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Definitions;
+namespace App\Definitions\Definition;
 
+use App\Definitions\AbstractDefinitions;
+use App\Definitions\DefinitionsInterface;
 use App\Entity\Translations;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class TranslationDefinition extends AbstractDefinitions
+class TranslationDefinition extends AbstractDefinitions implements DefinitionsInterface
 {
-
     public function __construct(EntityManagerInterface $em)
     {
         parent::__construct($em);
@@ -26,9 +27,9 @@ class TranslationDefinition extends AbstractDefinitions
         }
         return $transData;
     }
-    public static function define(array $params = []): array
+
+    public static function defineParams(Request $request, array $params = []): array
     {
         return self::translations($params["selectedCountry"]);
     }
-
 }

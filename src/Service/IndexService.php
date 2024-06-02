@@ -2,22 +2,14 @@
 
 namespace App\Service;
 
-use App\Definitions\Definitions;
-use App\Entity\Country;
-use App\Entity\Translations;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class IndexService
 {
     private ApiService $apiService;
 
-    private EntityManagerInterface $em;
 
-    public function __construct(ApiService $apiService, EntityManagerInterface $em)
+    public function __construct(ApiService $apiService)
     {
-        $this->em = $em;
         $this->apiService = $apiService;
     }
 

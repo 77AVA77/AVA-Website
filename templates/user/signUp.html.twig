@@ -1,4 +1,4 @@
-{% extends 'base/index.html.twig' %}
+{% extends 'index.html.twig' %}
 {% block title %}Login | Welcome{% endblock %}
 {% block main_body %}
     {% if register is defined %}
@@ -12,7 +12,7 @@
             <div class="container mx-auto text-center">
                 <div class="row">
                     <div class="col-md-9 col-lg-8 mx-auto">
-                        <h3 class="header text-center font-weight-light">
+                        <h3 class="text-center font-weight-light">
                             {% if register is defined %}
                                 {{ translation["Welcome To AVA"] | replace({'AVA': '<strong>AVA</strong>'}) | raw }}!
                             {% else %}
@@ -24,7 +24,7 @@
                             {% include 'base/alert.html.twig' with {'alertType':'warning','alertText': error} %}
                         {% endif %}
                         <form method="POST">
-                            {% if register is defined %}
+                            {% if page == 'register' %}
                                 <div class="form-floating mb-3">
                                     <input type="text" name="name" class="form-control" id="floatingName" placeholder="{{ translation["Name"] }}">
                                 </div>
@@ -38,9 +38,10 @@
                             <div class="form-floating mb-3">
                                 <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="{{ translation["Password"] }}">
                             </div>
-                            <input class="btn btn-secondary btn-lg btn-block btn-login text-uppercase fw-bold SignUpSubmit  pl-5 pr-5"
+                            <input class="btn btn-secondary btn-lg btn-block btn-login text-uppercase fw-bold  pl-5 pr-5"
                                     type="submit" value="{{ submit }}">
                             <br>
+                            <input type="hidden" name="page" value="{{ page }}">
                             <div class="text-center">
                                 <a class="small" href="#"></a>
                                 <a class="small" href="#">{{ translation["Forgot Password"] }}</a>
