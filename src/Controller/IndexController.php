@@ -30,6 +30,12 @@ class IndexController extends AbstractController
     #[Route('/', name: 'index')]
     public function indexPage(Request $request): Response
     {
-        return $this->render('/base/main.html.twig', $this->definitions::defineParams($request));
+        return $this->render('base.html.twig');
+    }
+
+    #[Route('/users', name: 'users')]
+    public function usersPage(Request $request): Response
+    {
+        return $this->redirectToRoute('index', ['page' => 'users']);
     }
 }

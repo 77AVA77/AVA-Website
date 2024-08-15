@@ -26,7 +26,6 @@ class UserDefinition extends AbstractDefinitions implements DefinitionsInterface
             ->from(User::class, 'u')
             ->where("u.id = {$_SESSION['userId']}")
             ->getQuery()->getArrayResult();
-
     }
 
 
