@@ -1,36 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xml:lang="en">
+<html lang="en">
 <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}AVA website{% endblock %}</title>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block head_javascripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-        <script src="{{ asset('myScript.js', 'js') }}"></script>
-    {% endblock %}
     {% block stylesheets %}
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-              crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('mystyles.css', 'css') }}">
+
+        <link rel="stylesheet" href="{{ asset("mdi/css/materialdesignicons.min.css", "vendors") }}">
+        <link rel="stylesheet" href="{{ asset("css/vendor.bundle.base.css", "vendors") }}">
+        <link rel="stylesheet" href="{{ asset("jvectormap/jquery-jvectormap.css", "vendors") }}">
+        <link rel="stylesheet" href="{{ asset("flag-icon-css/css/flag-icon.min.css", "vendors") }}">
+        <link rel="stylesheet" href="{{ asset("owl-carousel-2/owl.carousel.min.css", "vendors") }}">
+        <link rel="stylesheet" href="{{ asset("owl-carousel-2/owl.theme.default.min.css", "vendors") }}">
+
+        <link rel="stylesheet" href="{{ asset("style.css", "css") }}">
+        <link rel="stylesheet" href="{{ asset("favicon.png", "images") }}">
+
+        {{ encore_entry_link_tags('app') }}
+
     {% endblock %}
 </head>
 <body>
-{% include 'base/header.html.twig' %}
-
 {% block body %}
-    {% block main_body %}{% endblock %}
 {% endblock %}
-{% include 'base/footer.html.twig' %}
+{% block head_javascripts %}
 
+    <script src="{{ asset("js/vendor.bundle.base.js", "vendors") }}"></script>
+    <script src="{{ asset("chart.js/Chart.min.js", "vendors") }}"></script>
+    <script src="{{ asset("progressbar.js/progressbar.min.js", "vendors") }}"></script>
+    <script src="{{ asset("jvectormap/jquery-jvectormap.min.js", "vendors") }}"></script>
+    <script src="{{ asset("jvectormap/jquery-jvectormap.min.js", "vendors") }}"></script>
+    <script src="{{ asset("owl-carousel-2/owl.carousel.min.js", "vendors") }}"></script>
+    <script src="{{ asset("off-canvas.js", "js") }}"></script>
+    <script src="{{ asset("hoverable-collapse.js", "js") }}"></script>
+    <script src="{{ asset("misc.js", "js") }}"></script>
+    <script src="{{ asset("settings.js", "js") }}"></script>
+    <script src="{{ asset("todolist.js", "js") }}"></script>
+    <script src="{{ asset("dashboard.js", "js") }}"></script>
+    <script src="{{ asset("chart.js", "js") }}"></script>
+
+    {{ encore_entry_script_tags('app') }}
+{#    <script src="http://localhost:8097"></script>#}
+
+
+
+{% endblock %}
 </body>
-
 </html>

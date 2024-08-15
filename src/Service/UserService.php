@@ -27,7 +27,6 @@ class UserService
                  " . AbstractDefinitions::ROLE_USER . ")
                 RETURNING id";
         $userId = $this->em->getConnection()->executeQuery($sql)->fetchAllAssociative();
-        dd($userId);
         return $userId;
     }
 

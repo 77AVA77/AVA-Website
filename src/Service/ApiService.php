@@ -38,7 +38,6 @@ class ApiService
             ->from(Country::class, 'c')
             ->where("c.alias = '$countryAlias'")
             ->getQuery()->getArrayResult()[0]["capital"];
-
         if (!empty($weatherApi)) {
             $apiId = $weatherApi["id"];
             $updatedAt = $weatherApi["updated_at"];

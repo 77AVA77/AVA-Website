@@ -32,39 +32,39 @@ class UserController extends AbstractController
         $this->userService = $userService;
     }
 
-    /**
-     * @throws Exception
-     */
-    #[NoReturn]
-    #[Route('/{signUp}', name: 'signUp', requirements: ["signUp" => "(login|register)"])]
-    public function loginPage(string $signUp, Request $request): Response
-    {
-        session_start();
-        $params = $this->definitions::defineParams($request);
-        $params = array_merge($params, ["page" => $signUp]);
-
-        if (!empty($request->request->all())) {
-            $requestParams = $request->request->all();
-            $response = $this->userService->securityCheck($requestParams, $signUp);
-            $error = !empty($response["error"]) ? $response["error"] : null;
-            if (!empty($error)) {
-                $params = array_merge($params, ["error" => $error]);
-                return $this->render('user/signUp.html.twig', $params);
-            } else {
-                if ($signUp == 'register') {
-                    $userId = $this->userService->setUser($requestParams);
-                }
-                else{
-                    $userId = $response["userId"];
-                }
-                $_SESSION["userId"] = $userId;
-                return $this->redirectToRoute('index');
-            }
-        }
-
-        return $this->render('user/signUp.html.twig', $params);
-    }
-
+//    /**
+//     * @throws Exception
+//     */
+//    #[NoReturn]
+//    #[Route('/{signUp}', name: 'signUp', requirements: ["signUp" => "(login|register)"])]
+//    public function loginPage(string $signUp, Request $request): Response
+//    {
+//        session_start();
+//        $params = $this->definitions::defineParams($request);
+//        $params = array_merge($params, ["page" => $signUp]);
+//
+//        if (!empty($request->request->all())) {
+//            $requestParams = $request->request->all();
+//            $response = $this->userService->securityCheck($requestParams, $signUp);
+//            $error = !empty($response["error"]) ? $response["error"] : null;
+//            if (!empty($error)) {
+//                $params = array_merge($params, ["error" => $error]);
+//                return $this->render('user/login.html.twig', $params);
+//            } else {
+//                if ($signUp == 'register') {
+//                    $userId = $this->userService->setUser($requestParams);
+//                }
+//                else{
+//                    $userId = $response["userId"];
+//                }
+//                $_SESSION["userId"] = $userId;
+//                return $this->redirectToRoute('index');
+//            }
+//        }
+//
+//        return $this->render('user/login.html.twig', $params);
+//    }
+//
     #[NoReturn]
     #[Route('/logout', name: 'logout')]
     public function logout(Request $request): Response
@@ -73,6 +73,19 @@ class UserController extends AbstractController
         unset($params["user"]);
         session_unset();
         return $this->redirectToRoute('index');
+    }
+
+    #[NoReturn]
+    #[Route('/login', name: 'login')]
+    public function login(Request $request): Response
+    {
+        return $this->render('user/login.html.twig');
+    }
+    #[NoReturn]
+    #[Route('/register', name: 'register')]
+    public function register(Request $request): Response
+    {
+        return $this->render('user/register.html.twig');
     }
 
 

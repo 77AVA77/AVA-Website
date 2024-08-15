@@ -8,12 +8,18 @@ framework:
 
     assets:
         packages:
+            css:
+                base_path: packages/css/
+            fonts:
+                base_path: packages/fonts/
             images:
                 base_path: packages/images/
             js:
                 base_path: packages/js/
-            css:
-                base_path: packages/css/
+            scss:
+                base_path: packages/scss/
+            vendors:
+                base_path: packages/vendors/
 
     #esi: true
     #fragments: true

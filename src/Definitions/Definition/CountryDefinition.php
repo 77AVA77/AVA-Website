@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CountryDefinition extends AbstractDefinitions implements DefinitionsInterface
 {
-    const AVA_MAIN_LANGUAGE = "en";
+    const AVA_MAIN_LANGUAGE = "gb";
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -28,12 +28,17 @@ class CountryDefinition extends AbstractDefinitions implements DefinitionsInterf
 
     public static function getCountries(): array
     {
-        return self::$em->createQueryBuilder()
+        $countries =  self::$em->createQueryBuilder()
             ->select('c')
             ->from(Country::class, 'c')
             ->where("c.status = " . AbstractDefinitions::STATUS_ACTIVE)
             ->orderBy('c.id', 'ASC')
             ->getQuery()->getArrayResult();
+        foreach ($countries as $key => &$country){
+            $countries[$key]['imagePath'] = AbstractDefinitions::FLAGIMAGEPATH4X3 . $country['alias']. '.svg';
+        }
+
+        return  $countries;
     }
 
     public static function defineParams(Request $request, array $params = []): array
